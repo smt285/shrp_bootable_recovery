@@ -308,7 +308,7 @@
 		<template name="c_misc_panel">
 			<image>
 				<condition var1="c_temp2" op="=" var2="99"/>
-				<placement x="338" y="1462"/>
+				<placement x="390" y="1462"/>
 				<image resource="c_misc_panel"/>
 			</image>
 			<button>
