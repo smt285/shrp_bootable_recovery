@@ -122,6 +122,7 @@
 		<image name="c_flashlight_off" filename="c_flashlight_off" retainaspect="1"/>
 		<image name="c_flashlight_on" filename="c_flashlight_on" retainaspect="1"/>
 		<image name="c_epicxsort" filename="c_epicxsort" retainaspect="1"/>
+		<image name="c_dateSort" filename="c_dateSort" retainaspect="1"/>
 		<image name="c_modules" filename="c_modules" retainaspect="1"/>
 		<image name="white_mode_color" filename="white_mode_color" retainaspect="1"/>
 		<image name="dark_black_mode_color" filename="dark_black_mode_color" retainaspect="1"/>
@@ -215,6 +216,10 @@
 		<image name="kb_arrow_right" filename="kb_arrow_right" retainaspect="1"/>
 		<image name="kb_arrow_up" filename="kb_arrow_up" retainaspect="1"/>
 		<image name="kb_arrow_down" filename="kb_arrow_down" retainaspect="1"/>
+		<image name="c_displayTxt" filename="c_displayTxt" retainaspect="1"/>
+		<image name="c_editTxt" filename="c_editTxt" retainaspect="1"/>
+		<image name="c_removeLine" filename="c_removeLine" retainaspect="1"/>
+		<image name="c_applyCustomTheme" filename="c_applyCustomTheme" retainaspect="1"/>
 	</resources>
 
 	<variables>
@@ -402,69 +407,17 @@
 
 			<button style="c_tab_set">
 				<placement x="536" y="%c_tab_row%"/>
-				<text>{@settings_screen_btn=Screen}</text>
-				<action function="page">settings_screen</action>
+				<text>{@c_device=Device}</text>
+				<action function="page">settings_device</action>
 			</button>
 
 			<button style="c_tab_set">
 				<placement x="807" y="%c_tab_row%"/>
-				<text>{@settings_vibration_btn=Vibration}</text>
-				<action function="page">settings_vibration</action>
+				<text>SHRP</text>
+				<action function="page">settings_shrp</action>
 			</button>
 		</template>
-		<template name="c_tab_backup_options">
-			<button style="c_tab">
-				<placement x="480" y="%backup_tab_y%"/>
-				<text>{@backup_hdr=Backup}</text>
-				<action function="page">backup</action>
-			</button>
-			<button style="c_tab">
-				<conditions>
-					<condition var1="tw_include_encrypted_backup" var2="1"/>
-					<condition var1="tw_encrypt_backup" var2="0"/>
-					<condition var1="tw_enable_adb_backup" op="!=" var2="1"/>
-				</conditions>
-				<placement x="760" y="%backup_tab_y%"/>
-				<text>{@encryption_tab=Encryption}</text>
-				<actions>
-					<action function="set">tw_password_not_match=0</action>
-					<action function="page">backupencryption</action>
-				</actions>
-			</button>
-		</template>
-		<template name="c_tab_encryption">
-			<button style="c_tab">
-				<placement x="530" y="%backup_tab_y%"/>
-				<text>{@backup_hdr=Backup}</text>
-				<action function="page">backup</action>
-			</button>
 
-			<button style="c_tab">
-				<placement x="780" y="%backup_tab_y%"/>
-				<text>{@options_hdr=Options}</text>
-				<action function="page">backup_options</action>
-			</button>
-		</template>
-		<template name="c_tab_backup">
-			<button style="c_tab">
-				<placement x="430" y="%backup_tab_y%"/>
-				<text>{@options_hdr=Options}</text>
-				<action function="page">backup_options</action>
-			</button>
-			<button style="c_tab">
-				<conditions>
-					<condition var1="tw_include_encrypted_backup" var2="1"/>
-					<condition var1="tw_encrypt_backup" var2="0"/>
-					<condition var1="tw_enable_adb_backup" op="!=" var2="1"/>
-				</conditions>
-				<placement x="710" y="%backup_tab_y%"/>
-				<text>{@encryption_tab=Encryption}</text>
-				<actions>
-					<action function="set">tw_password_not_match=0</action>
-					<action function="page">backupencryption</action>
-				</actions>
-			</button>
-		</template>
 		<template name="c_lock">
 			<background color="%semi_transparent%"/>
 			<button>
@@ -512,16 +465,29 @@
 		<template name="c_simple_sort">
 			<background color="%c_white%"/>
 			<button>
-				<condition var1="tw_gui_sort_order" op="=" var2="1"/>
-				<placement x="920" y="%sort_button_y%"/>
+				<condition var1="tw_gui_sort_order" op="!=" var2="-1"/>
+				<placement x="776" y="%sort_button_y%"/>
 				<image resource="c_epicxsort"/>
 				<action function="set">tw_gui_sort_order=-1</action>
 			</button>
 			<button>
-				<condition var1="tw_gui_sort_order" op="=" var2="-1"/>
-				<placement x="920" y="%sort_button_y%"/>
+				<condition var1="tw_gui_sort_order" op="!=" var2="1"/>
+				<placement x="776" y="%sort_button_y%"/>
 				<image resource="c_epicxsort"/>
 				<action function="set">tw_gui_sort_order=1</action>
+			</button>
+
+			<button>
+				<condition var1="tw_gui_sort_order" op="!=" var2="-2"/>
+				<placement x="920" y="%sort_button_y%"/>
+				<image resource="c_dateSort"/>
+				<action function="set">tw_gui_sort_order=-2</action>
+			</button>
+			<button>
+				<condition var1="tw_gui_sort_order" op="!=" var2="2"/>
+				<placement x="920" y="%sort_button_y%"/>
+				<image resource="c_dateSort"/>
+				<action function="set">tw_gui_sort_order=2</action>
 			</button>
 		</template>
 		<template name="c_reboot_page">
